@@ -30,8 +30,14 @@ public class Manager {
 
     }
     public String[] findLast() {
-        String[] result = new String[limit];
-        for (int i = 0; i < limit; i++) {
+        int resultLength;
+        if (limit < movies.length) {
+            resultLength = limit;
+        } else {
+            resultLength = movies.length;
+        }
+        String[] result = new String[resultLength];
+        for (int i = 0; i < resultLength; i++) {
             result[i] = movies[movies.length - 1 - i];
         }
         return result;
