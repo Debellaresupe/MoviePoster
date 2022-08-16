@@ -1,8 +1,11 @@
 package ru.netology.movieposter;
+
 public class Manager {
 
-    private String[] movies = new String[0];
-
+    private MovieRepository cinema;
+    public Manager(MovieRepository cinema) {
+        this.cinema = cinema;
+    }
     private int limit;
 
     public Manager() {
@@ -13,27 +16,32 @@ public class Manager {
         this.limit = limit;
     }
 
-    public void add(String movie) {
-        String[] tmp = new String[movies.length + 1];
-
-        for (int i = 0; i < movies.length; i++) {
-            tmp[i] = movies [i];
-        }
-
-        tmp[tmp.length - 1] = movie;
-
-        movies = tmp;
+    public void add(Movie film) {
+        cinema.save(film);
     }
-    public String[] findAll() {
 
-        return movies;
-
+    public Movie[] findAll() {
+        Movie[] all = cinema.findAll();
+        return all;
     }
-    public String[] findLast() {
-        String[] result = new String[limit];
-        for (int i = 0; i < limit; i++) {
-            result[i] = movies[movies.length - 1 - i];
+
+    public Movie[] findLast() {
+        Movie[] all = cinema.findAll();
+        int resultLength;
+        if (limit < all.length) {
+            resultLength = limit;
+        } else {
+            resultLength = all.length;
         }
-        return result;
+        Movie[] reservedResult = new Movie[resultLength];
+        for (int i = 0; i < resultLength; i++) {
+            reservedResult[i] = all[all.length - 1 - i];
+        }
+        return reservedResult;
+    }
+
+    public Movie[] removeAll() {
+        Movie[] all = cinema.removeAll();
+        return all;
     }
 }

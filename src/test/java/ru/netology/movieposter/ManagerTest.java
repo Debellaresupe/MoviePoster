@@ -4,36 +4,32 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ManagerTest {
-    String movie1 = "movie1";
-    String movie2 = "movie2";
-    String movie3 = "movie3";
-    String movie4 = "movie4";
-    String movie5 = "movie5";
-    String movie6 = "movie6";
-    String movie7 = "movie7";
-    String movie8 = "movie8";
-    String movie9 = "movie9";
-    String movie10 = "movie10";
+    MovieRepository repo = new MovieRepository();
+    Manager manager = new Manager(repo);
+    Movie film1 = new Movie(1, 11, "Film1", 100, 1);
+    Movie film2 = new Movie(2, 22, "Film2", 200, 2);
+    Movie film3 = new Movie(3, 33, "Film3", 300, 3);
+    Movie film4 = new Movie(4, 44, "Film4", 400, 4);
+    Movie film5 = new Movie(5, 55, "Film5", 500, 5);
+    Movie film6 = new Movie(6, 66, "Film6", 600, 6);
 
     @Test
     public void shouldBeAddNewMovie() {
 
-        Manager manager = new Manager();
+        manager.add(film1);
+        manager.add(film2);
+        manager.add(film3);
+        manager.add(film4);
+        manager.add(film5);
 
-        manager.add(movie1);
-        manager.add(movie2);
-        manager.add(movie3);
-        manager.add(movie4);
-        manager.add(movie5);
-
-        String[] expected = {
-                movie1,
-                movie2,
-                movie3,
-                movie4,
-                movie5,
+        Movie[] expected = {
+                film1,
+                film2,
+                film3,
+                film4,
+                film5,
         };
-        String[] actual = manager.findAll();
+        Movie[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(actual, expected);
 
@@ -41,64 +37,42 @@ public class ManagerTest {
     @Test
     public void shouldBeReverseOrder() {
 
-        Manager manager = new Manager();
 
-        manager.add(movie1);
-        manager.add(movie2);
-        manager.add(movie3);
-        manager.add(movie4);
-        manager.add(movie5);
-        manager.add(movie6);
-        manager.add(movie7);
-        manager.add(movie8);
-        manager.add(movie9);
-        manager.add(movie10);
+        manager.add(film1);
+        manager.add(film2);
+        manager.add(film3);
+        manager.add(film4);
+        manager.add(film5);
 
-        String[] expected = {
-                movie10,
-                movie9,
-                movie8,
-                movie7,
-                movie6,
-                movie5,
-                movie4,
-                movie3,
-                movie2,
-                movie1,
+
+        Movie[] expected = {
+                film5,
+                film4,
+                film3,
+                film2,
+                film1,
         };
-        String[] actual = manager.findLast();
+        Movie[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(actual, expected);
 
     }
     @Test
-    public void shouldBeReverseOrderLastSeven7() {
+    public void shouldBeRemoveAll() {
 
-        Manager manager = new Manager(7);
+        manager.add(film1);
+        manager.add(film2);
+        manager.add(film3);
+        manager.add(film4);
+        manager.add(film5);
 
-        manager.add(movie1);
-        manager.add(movie2);
-        manager.add(movie3);
-        manager.add(movie4);
-        manager.add(movie5);
-        manager.add(movie6);
-        manager.add(movie7);
-        manager.add(movie8);
-        manager.add(movie9);
-        manager.add(movie10);
+        repo.removeAll();
 
-        String[] expected = {
-                movie10,
-                movie9,
-                movie8,
-                movie7,
-                movie6,
-                movie5,
-                movie4,
-        };
-        String[] actual = manager.findLast();
+        Movie[] expected = {};
+
+        Movie[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(actual, expected);
-
     }
+
 }
