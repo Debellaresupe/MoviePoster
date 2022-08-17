@@ -3,20 +3,17 @@ package ru.netology.movieposter;
 public class Manager {
 
     private MovieRepository cinema;
-    public Manager(MovieRepository cinema) {
-        this.cinema = cinema;
-    }
     private int limit;
 
+    public Manager(MovieRepository cinema, int limit) {
+        this.cinema = cinema;
+        this.limit = limit;
+    }
     public Manager() {
         limit = 10;
     }
 
-    public Manager(int limit) {
-        this.limit = limit;
-    }
-
-    public void add(Movie film) {
+    public void save(Movie film) {
         cinema.save(film);
     }
 
